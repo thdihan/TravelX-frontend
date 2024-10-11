@@ -5,12 +5,13 @@ import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 
 import { axiosInstance } from "@/src/lib/AxiosInstance";
-import { profile } from "console";
 
 export const registerUser = async (userData: FieldValues) => {
     try {
-        const { data } = await axiosInstance.post("/auth/register", userData);
+        console.log("userData", userData);
+        const { data } = await axiosInstance.post("/auth/signup", userData);
 
+        console.log(data);
         if (data.success) {
             cookies().set("accessToken", data?.data?.accessToken);
             cookies().set("refreshToken", data?.data?.refreshToken);
@@ -18,7 +19,7 @@ export const registerUser = async (userData: FieldValues) => {
 
         return data;
     } catch (error: any) {
-        throw new Error(error);
+        throw new Error(error.message);
     }
 };
 

@@ -20,6 +20,7 @@ export default function FXTextarea({
     return (
         <Textarea
             {...register(name)}
+            errorMessage={errors[name] ? (errors[name].message as string) : ""}
             label={label}
             minRows={6}
             variant={variant}
