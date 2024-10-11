@@ -39,8 +39,10 @@ export interface IUser {
     role: string;
     email: string;
     status: string;
-    mobileNumber: string;
+    phone: string;
+    address: string;
     profilePhoto?: string;
+    dob: string;
     createdAt?: string;
     updatedAt?: string;
     __v?: number;

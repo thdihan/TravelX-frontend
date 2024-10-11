@@ -12,6 +12,8 @@ import { useUserRegistration } from "@/src/hooks/auth.hook";
 import registerValidationSchema from "@/src/schemas/register.schema";
 import FXTextarea from "@/src/components/form/FXTextarea";
 import LoadingSpinner from "@/src/components/UI/Loading";
+import FXDatePicker from "@/src/components/form/FXDatePicker";
+import { dateToIso } from "@/src/utils/dateToIso";
 
 export default function RegisterPage() {
     const {
@@ -30,6 +32,7 @@ export default function RegisterPage() {
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const userData = {
             ...data,
+            dob: dateToIso(data.dob),
             profilePhoto:
                 "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         };
@@ -69,6 +72,9 @@ export default function RegisterPage() {
                                 name="phone"
                                 size="sm"
                             />
+                        </div>
+                        <div className="py-3">
+                            <FXDatePicker label="Date of Birth" name="dob" />
                         </div>
                         <div className="py-3">
                             <FXInput
