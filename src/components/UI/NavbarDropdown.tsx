@@ -12,6 +12,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/src/services/AuthServices";
 import { useUser } from "@/src/contest/user.provider";
 import { protectedRoute } from "@/src/constant";
+import { ArrowIcon } from "@/src/assets/icons";
 
 const NavbarDropDown = () => {
     const router = useRouter();
@@ -34,7 +35,15 @@ const NavbarDropDown = () => {
     return (
         <Dropdown>
             <DropdownTrigger>
-                <Avatar className="cursor-pointer" src={user?.profilePhoto} />
+                <div className="flex items-center  bg-white border border-gray-300 px-1 space-x-2  py-1 rounded-full">
+                    <Avatar
+                        className="cursor-pointer"
+                        size="sm"
+                        src={user?.profilePhoto}
+                    />
+                    <h2 className="pe-2 text-sm">Full Username</h2>
+                    <ArrowIcon />
+                </div>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions">
                 <DropdownItem onClick={() => handleNavigation("/profile")}>
