@@ -42,7 +42,7 @@ const LoginPage = () => {
     return (
         <>
             {isPending && <LoadingSpinner />}
-            <div className="flex min-h-[calc(100vh-200px)] w-full flex-col items-center justify-center ">
+            <div className="flex min-h-[100vh] w-full flex-col items-center justify-center ">
                 <h3 className="my-2 text-2xl font-bold">Login with TravelX</h3>
                 <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
                 <div className="w-[80%] md:w-[50%] lg:w-[30%]  bg-white p-8 border border-gray-300 rounded-xl">

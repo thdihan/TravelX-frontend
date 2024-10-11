@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import FXForm from "@/src/components/form/FXForm";
 import FXInput from "@/src/components/form/FXInput";
@@ -11,7 +12,6 @@ import { useUserRegistration } from "@/src/hooks/auth.hook";
 import registerValidationSchema from "@/src/schemas/register.schema";
 import FXTextarea from "@/src/components/form/FXTextarea";
 import LoadingSpinner from "@/src/components/UI/Loading";
-import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
     const {
@@ -44,7 +44,7 @@ export default function RegisterPage() {
     return (
         <>
             {isPending && <LoadingSpinner />}
-            <div className="flex min-h-[calc(100vh-100px)] flex-col items-center justify-center">
+            <div className="flex min-h-[100vh] flex-col items-center justify-center">
                 <h3 className="my-2 text-xl font-bold">
                     Register with TravelX
                 </h3>
