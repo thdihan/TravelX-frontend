@@ -2,17 +2,11 @@ import { ReactNode } from "react";
 
 const layout = ({
     children,
-    recentPosts,
 }: {
     children: ReactNode;
     recentPosts: ReactNode;
 }) => {
-    return (
-        <>
-            {children}
-            {recentPosts}
-        </>
-    );
+    return <>{children}</>;
 };
 
 export default layout;
