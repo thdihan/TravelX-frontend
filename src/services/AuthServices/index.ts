@@ -66,3 +66,13 @@ export const getCurrentUser = async () => {
 
     return decodedToken;
 };
+
+export const updateProfile = async (userData: FieldValues) => {
+    try {
+        const { data } = await axiosInstance.put("/user", userData);
+
+        return data;
+    } catch (error: any) {
+        throw new Error(error);
+    }
+};

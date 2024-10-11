@@ -15,8 +15,10 @@ import FXTextarea from "@/src/components/form/FXTextarea";
 import { useUser } from "@/src/contest/user.provider";
 import FXForm from "@/src/components/form/FXForm";
 import { dateToIso, IsoToDate } from "@/src/utils/dateToIso";
+import { useProfileUpdate } from "@/src/hooks/user.hook";
 
 export default function CreatePost() {
+    const { mutate: handleProfileUpdate, isPending } = useProfileUpdate();
     const { user } = useUser();
     const methods = useForm();
     const { handleSubmit } = methods;
@@ -26,7 +28,8 @@ export default function CreatePost() {
             ...data,
             dob: dateToIso(data.dob),
         };
-        console.log(userData);
+        console.log({ id: user?._id, payload: userData });
+        handleProfileUpdate({ id: user?._id, payload: userData });
     };
 
     const defaultValues = {
@@ -36,7 +39,7 @@ export default function CreatePost() {
         address: user?.address,
     };
 
-    console.log(user);
+    // console.log(user);
 
     return (
         <>
