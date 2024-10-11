@@ -13,8 +13,8 @@ export const registerUser = async (userData: FieldValues) => {
 
         console.log(data);
         if (data.success) {
-            cookies().set("accessToken", data?.data?.accessToken);
-            cookies().set("refreshToken", data?.data?.refreshToken);
+            cookies().set("accessToken", data?.token);
+            // cookies().set("refreshToken", data?.data?.refreshToken);
         }
 
         return data;
@@ -28,8 +28,8 @@ export const loginUser = async (userData: FieldValues) => {
         const { data } = await axiosInstance.post("/auth/login", userData);
 
         if (data.success) {
-            cookies().set("accessToken", data?.data?.accessToken);
-            cookies().set("refreshToken", data?.data?.refreshToken);
+            cookies().set("accessToken", data?.token);
+            // cookies().set("refreshToken", data?.data?.refreshToken);
         }
 
         return data;

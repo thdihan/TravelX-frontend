@@ -1,7 +1,9 @@
+import Card from "@/src/components/UI/Card";
+
 export default function page() {
     return (
         <div>
-            <h1> Profile </h1>
+            <Card />
         </div>
     );
 }

@@ -24,7 +24,7 @@ const NavbarDropDown = () => {
         userLoading(true);
 
         if (protectedRoute.some((route) => pathname.match(route))) {
-            router.push("/");
+            router.push("/login");
         }
     };
 

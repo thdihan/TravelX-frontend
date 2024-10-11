@@ -8,10 +8,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <Navbar />
             <Container>
                 <div className="flex w-full gap-12">
-                    <div className="w-2/6">
+                    {/* <div className="w-2/6">
                         <Sidebar />
                     </div>
-                    <div className="w-5/6">{children}</div>
+                    <div className="w-5/6">{children}</div> */}
+                    {children}
                 </div>
             </Container>
         </div>

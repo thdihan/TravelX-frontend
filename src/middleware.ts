@@ -19,6 +19,7 @@ export async function middleware(request: NextRequest) {
     const user = await getCurrentUser();
 
     if (!user) {
+        console.log("User Found", user);
         if (AuthRoutes.includes(pathname)) {
             return NextResponse.next();
         } else {
@@ -35,10 +36,17 @@ export async function middleware(request: NextRequest) {
             return NextResponse.next();
     }
 
-    return NextResponse.redirect(new URL("/", request.url));
+    // return NextResponse.redirect(new URL("/", request.url));
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-    matcher: ["/profile", "/admin", "/profile/:page*", "/login", "/register"],
+    matcher: [
+        "/",
+        "/profile",
+        "/admin",
+        "/profile/:page*",
+        "/login",
+        "/register",
+    ],
 };
