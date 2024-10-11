@@ -18,12 +18,12 @@ export const metadata: Metadata = {
     },
 };
 
-export const viewport: Viewport = {
-    themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "white" },
-        { media: "(prefers-color-scheme: dark)", color: "black" },
-    ],
-};
+// export const viewport: Viewport = {
+//     themeColor: [
+//         { media: "(prefers-color-scheme: light)", color: "white" },
+//         { media: "(prefers-color-scheme: dark)", color: "black" },
+//     ],
+// };
 
 export default function RootLayout({
     children,
@@ -35,12 +35,12 @@ export default function RootLayout({
             <head />
             <body
                 className={clsx(
-                    "min-h-screen bg-background font-sans antialiased",
+                    "min-h-screen  font-sans antialiased bg-[#F9F9F9] text-black",
                     fontSans.variable
                 )}
             >
                 <Providers
-                    themeProps={{ attribute: "class", defaultTheme: "dark" }}
+                    themeProps={{ attribute: "class", defaultTheme: "white" }}
                 >
                     {children}
                 </Providers>
