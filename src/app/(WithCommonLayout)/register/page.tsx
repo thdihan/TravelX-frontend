@@ -9,6 +9,7 @@ import FXForm from "@/src/components/form/FXForm";
 import FXInput from "@/src/components/form/FXInput";
 import { useUserRegistration } from "@/src/hooks/auth.hook";
 import registerValidationSchema from "@/src/schemas/register.schema";
+import FXTextarea from "@/src/components/form/FXTextarea";
 
 export default function RegisterPage() {
     const { mutate: handleUserRegistration, isPending } = useUserRegistration();
@@ -51,18 +52,12 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
-            <h3 className="my-2 text-xl font-bold">Register with FoundX</h3>
+        <div className="flex min-h-[calc(100vh-100px)] flex-col items-center justify-center">
+            <h3 className="my-2 text-xl font-bold">Register with TravelX</h3>
             <p className="mb-4">Help Lost Items Find Their Way Home</p>
-            <div className="w-[35%]">
+            <div className="w-[80%] md:w-[50%] lg:w-[30%]  bg-white p-8 border border-gray-300 rounded-xl">
                 <FXForm
                     //! Only for development
-                    defaultValues={{
-                        name: "Mir Hussain",
-                        email: "mir@gmail.com",
-                        mobileNumber: "01711223344",
-                        password: "123456",
-                    }}
                     resolver={zodResolver(registerValidationSchema)}
                     onSubmit={onSubmit}
                 >
@@ -87,9 +82,12 @@ export default function RegisterPage() {
                             type="password"
                         />
                     </div>
+                    <div className="py-3">
+                        <FXTextarea label="Address" name="address" />
+                    </div>
 
                     <Button
-                        className="my-3 w-full rounded-md bg-default-900 text-default"
+                        className="my-3 w-full rounded-lg bg-[#eb6b56] font-semibold  text-white"
                         size="lg"
                         type="submit"
                     >
@@ -97,7 +95,13 @@ export default function RegisterPage() {
                     </Button>
                 </FXForm>
                 <div className="text-center">
-                    Already have an account ? <Link href={"/login"}>Login</Link>
+                    Already have an account ?{" "}
+                    <Link
+                        className="text-[#eb6b56] font-semibold"
+                        href={"/login"}
+                    >
+                        Login
+                    </Link>
                 </div>
             </div>
         </div>
