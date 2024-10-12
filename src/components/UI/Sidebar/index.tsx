@@ -1,6 +1,8 @@
 "use client";
 import { Button } from "@nextui-org/button";
-import Link from "next/link";
+import { useDisclosure } from "@nextui-org/modal";
+
+import CreatePostModal from "../CreatePost";
 
 import { adminLinks, userLinks } from "./constants";
 import { SidebarOptions } from "./SidebarOptions";
@@ -9,21 +11,26 @@ import { useUser } from "@/src/contest/user.provider";
 
 const Sidebar = () => {
     const { user } = useUser();
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return (
         <div>
+            <CreatePostModal
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onOpenChange={onOpenChange}
+            />
             <div className="rounded-xl bg-white border border-gray-200 p-4">
                 <div className="h-[330px] w-full rounded-md">
-                    <img src={user?.profilePhoto} alt="" />
+                    <img alt="" src={user?.profilePhoto} />
                 </div>
                 <div className="my-3">
                     <h1 className="text-2xl font-semibold">{user?.name}</h1>
                     <p className="break-words text-sm">{user?.email}</p>
                 </div>
                 <Button
-                    as={Link}
                     className="mt-2 w-full rounded-md bg-[#eb6b56] text-white "
-                    href={"/profile/create-post"}
+                    onPress={onOpen}
                 >
                     Create a post
                 </Button>

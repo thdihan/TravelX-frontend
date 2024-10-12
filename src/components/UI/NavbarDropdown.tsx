@@ -41,7 +41,7 @@ const NavbarDropDown = () => {
                         size="sm"
                         src={user?.profilePhoto}
                     />
-                    <h2 className="pe-2 text-sm">Full Username</h2>
+                    <h2 className="pe-2 text-sm">{user?.name}</h2>
                     <ArrowIcon />
                 </div>
             </DropdownTrigger>
