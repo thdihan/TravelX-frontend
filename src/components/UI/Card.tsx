@@ -12,6 +12,7 @@ import { IPost, TVotes } from "@/src/types";
 import { DownArrowVote, UpArrowVote } from "@/src/assets/icons";
 import { useMakeVote } from "@/src/hooks/vote.hook";
 import { useUser } from "@/src/contest/user.provider";
+import Link from "next/link";
 
 const Card = ({
     post,
@@ -25,7 +26,6 @@ const Card = ({
     const { user } = useUser();
     const { mutate: handleAddVote } = useMakeVote("add");
     const { mutate: handleRemoveVote } = useMakeVote("remove");
-    const { mutate: handleUpdateVote } = useMakeVote("update");
 
     const handleVote = (vote: "up" | "down") => {
         if (upVotes.find((v) => v.userId === user?._id) && vote === "up") {
@@ -93,8 +93,8 @@ const Card = ({
                         src={post?.images![0]}
                     />
                 </div>
-                <h2 className="font-semibold text-lg text-gray-800">
-                    {post?.title}
+                <h2 className="font-semibold text-lg text-gray-800 hover:text-[#eb6b56]">
+                    <Link href={`/posts/${post?._id}`}>{post?.title}</Link>
                 </h2>
                 <span className="w-full text-gray-600">
                     {parse(post?.content.slice(0, 10000))}...

@@ -18,3 +18,14 @@ export const createPost = async (formData: FormData): Promise<any> => {
         throw new Error("Failed to create post");
     }
 };
+
+export const getSinglePost = async (postId: string) => {
+    try {
+        const { data } = await axiosInstance.get(`/post/${postId}`);
+
+        console.log(data);
+        return data;
+    } catch (error: any) {
+        throw new Error("Failed to get post");
+    }
+};
