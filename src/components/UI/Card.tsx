@@ -9,6 +9,7 @@ import {
 import parse from "html-react-parser";
 
 import { IPost } from "@/src/types";
+import { DownArrowVote, UpArrowVote } from "@/src/assets/icons";
 
 const Card = ({ post }: { post: IPost }) => {
     return (
@@ -50,17 +51,19 @@ const Card = ({ post }: { post: IPost }) => {
                 </span>
             </CardBody>
             <CardFooter className="gap-3">
-                <div className="flex gap-1">
-                    <p className="font-semibold text-default-400 text-small">
-                        4
-                    </p>
-                    <p className=" text-default-400 text-small">Following</p>
-                </div>
-                <div className="flex gap-1">
-                    <p className="font-semibold text-default-400 text-small">
-                        97.1K
-                    </p>
-                    <p className="text-default-400 text-small">Followers</p>
+                <div className="flex space-x-3">
+                    <div className="flex gap-1 text-green-600 items-center">
+                        <UpArrowVote />
+                        <div className="flex space-x-1">
+                            <p className="font-semibold  text-small">97.1K</p>
+                            <p className="text-small">Upvotes</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-1 text-red-600">
+                        <DownArrowVote />
+                        <p className="font-semibold  text-small">97.1K</p>
+                        <p className=" text-small">Downvotes</p>
+                    </div>
                 </div>
             </CardFooter>
         </NextJsCard>
