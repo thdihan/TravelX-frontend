@@ -50,3 +50,15 @@ export type TVotes = {
     userId: string;
     vote: "up" | "down";
 };
+
+export type TComment = {
+    postId: string;
+    userId: string;
+    comment: string;
+};
+
+export type TCommentValue = {
+    postId: IPost;
+    userId: IUser;
+    comment: string;
+};
