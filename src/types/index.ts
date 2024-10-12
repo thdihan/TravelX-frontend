@@ -44,3 +44,9 @@ export interface IInput {
     name: string;
     disabled?: boolean;
 }
+
+export type TVotes = {
+    postId: string;
+    userId: string;
+    vote: "up" | "down";
+};
