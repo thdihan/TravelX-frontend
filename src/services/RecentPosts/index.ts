@@ -1,19 +1,25 @@
 "use server";
 import envConfig from "@/src/config/envConfig";
-import { delay } from "@/src/utils/delay";
 
-export const getRecentPosts = async () => {
+export const getRecentPosts = async (query: any) => {
     const fetchOption = {
         next: {
             tags: ["posts"],
         },
     };
+    let queryString: string = "";
+
+    if (query) {
+        queryString = new URLSearchParams(query).toString();
+        console.log(queryString);
+    }
     const res = await fetch(
-        `${envConfig.baseApi}/items?sortBy=-createdAt&limit=3`,
+        `${envConfig.baseApi}/post?${queryString}
+        `,
         fetchOption
     );
 
-    await delay(5000);
+    // await delay(5000);
 
     return res.json();
 };

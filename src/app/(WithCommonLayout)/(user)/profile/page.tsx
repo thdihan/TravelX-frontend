@@ -1,9 +1,13 @@
-import Card from "@/src/components/UI/Card";
+import ProfilePosts from "@/src/components/UI/ProfilePosts";
+import { getRecentPosts } from "@/src/services/RecentPosts";
 
-export default function page() {
+async function page() {
+    const { data: posts } = await getRecentPosts({});
     return (
-        <div>
-            <Card />
-        </div>
+        <>
+            <ProfilePosts posts={posts} />
+        </>
     );
 }
+
+export default page;

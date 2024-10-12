@@ -7,7 +7,6 @@ import {
     useState,
 } from "react";
 
-
 import { IUser } from "../types";
 import { getCurrentUser } from "../services/AuthServices";
 

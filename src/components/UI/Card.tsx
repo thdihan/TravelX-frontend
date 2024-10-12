@@ -1,19 +1,16 @@
 "use client";
 import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
 import {
     Card as NextJsCard,
     CardBody,
     CardFooter,
     CardHeader,
 } from "@nextui-org/card";
+import parse from "html-react-parser";
 
 import { IPost } from "@/src/types";
-import { useState } from "react";
 
-const Card = () => {
-    const [isFollowed, setIsFollowed] = useState(false);
-
+const Card = ({ post }: { post: IPost }) => {
     return (
         <NextJsCard className="w-full p-4">
             <CardHeader className="justify-between">
@@ -22,56 +19,35 @@ const Card = () => {
                         isBordered
                         radius="full"
                         size="md"
-                        src="https://nextui.org/avatars/avatar-1.png"
+                        src={post?.user?.profilePhoto}
                     />
                     <div className="flex flex-col gap-1 items-start justify-center">
                         <h4 className="text-small font-semibold leading-none text-default-600">
-                            Zoey Lang
+                            {post?.user?.name}
                         </h4>
                         <h5 className="text-small tracking-tight text-default-400">
-                            @zoeylang
+                            {post?.user?.email}
                         </h5>
                     </div>
                 </div>
-                {/* <Button
-                            className={
-                                isFollowed
-                                    ? "bg-transparent text-foreground border-default-200"
-                                    : ""
-                            }
-                            color="primary"
-                            radius="full"
-                            size="sm"
-                            variant={isFollowed ? "bordered" : "solid"}
-                            onPress={() => setIsFollowed(!isFollowed)}
-                        >
-                            {isFollowed ? "Unfollow" : "Follow"}
-                        </Button> */}
+                <div className="text-sm bg-[#eb6b56] py-1 px-2 text-white font-semibold rounded-full">
+                    {post?.category?.name}
+                </div>
             </CardHeader>
-            <CardBody className="px-3 py-0 text-small text-default-400">
+            <CardBody className="px-3 py-0 text-small text-default-400 w-[100%]">
                 <div className="h-[300px] py-4">
                     <img
-                        className="rounded-xl w-full h-full object-cover object-center"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxTVW7qIPLFJ_alveDA1xU-P0mGXH0CF98Fw&s"
                         alt=""
+                        className="rounded-xl w-full h-full object-cover object-center"
+                        src={post?.images![0]}
                     />
                 </div>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex,
-                    rerum vero, laboriosam non placeat distinctio animi omnis
-                    tenetur consequuntur corporis repellendus neque rem!
-                    Consectetur ab natus, repudiandae maiores recusandae
-                    provident cum excepturi saepe consequuntur voluptatem
-                    distinctio nemo? Repellat ipsum iste vel molestiae veniam
-                    cum cupiditate, hic saepe itaque minima numquam. Dolorem
-                    odio excepturi voluptatibus. Error consequuntur eius
-                    asperiores, quia iusto odit nesciunt in fugit maiores
-                    commodi unde impedit nam, at atque sunt. Sit enim
-                    consequatur exercitationem eveniet, voluptatum vel nihil
-                    earum quibusdam culpa ullam totam eligendi nemo, itaque
-                    temporibus placeat in, autem et unde ratione. Similique eum
-                    voluptatum eos necessitatibus?
-                </p>
+                <h2 className="font-semibold text-lg text-gray-800">
+                    {post?.title}
+                </h2>
+                <span className="w-full text-gray-600">
+                    {parse(post?.content.slice(0, 10000))}...
+                </span>
             </CardBody>
             <CardFooter className="gap-3">
                 <div className="flex gap-1">
