@@ -58,6 +58,7 @@ export type TComment = {
 };
 
 export type TCommentValue = {
+    _id: string;
     postId: IPost;
     userId: IUser;
     comment: string;
