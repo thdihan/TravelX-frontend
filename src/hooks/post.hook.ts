@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import { createPost } from "../services/Post";
 
@@ -7,10 +8,10 @@ export const useCreatePost = () => {
         mutationKey: ["CREATE_POST"],
         mutationFn: async (postData) => await createPost(postData),
         onSuccess: () => {
-            console.log("Post created successfully");
+            toast.success("Post created successfully");
         },
         onError: (error) => {
-            console.log(error.message);
+            toast.error(error.message);
         },
     });
 };

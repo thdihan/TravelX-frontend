@@ -5,7 +5,7 @@ import { axiosInstance } from "@/src/lib/AxiosInstance";
 
 export const createPost = async (formData: FormData): Promise<any> => {
     try {
-        const { data } = await axiosInstance.post("/items", formData, {
+        const { data } = await axiosInstance.post("/post", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

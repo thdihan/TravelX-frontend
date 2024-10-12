@@ -19,6 +19,7 @@ const Sidebar = () => {
                 isOpen={isOpen}
                 onOpen={onOpen}
                 onOpenChange={onOpenChange}
+                userId={user?._id}
             />
             <div className="rounded-xl bg-white border border-gray-200 p-4">
                 <div className="h-[330px] w-full rounded-md">

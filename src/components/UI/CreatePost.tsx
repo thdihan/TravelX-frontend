@@ -12,18 +12,22 @@ import {
 import { ChangeEvent, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import { Select, SelectItem } from "@nextui-org/select";
+import { Input } from "@nextui-org/input";
+
+import LoadingSpinner from "./Loading";
 
 import { useGetCategories } from "@/src/hooks/categories.hook";
-import LoadingSpinner from "./Loading";
+import { useCreatePost } from "@/src/hooks/post.hook";
 
 export default function CreatePostModal({
     isOpen,
     onOpenChange,
+    userId,
 }: {
     isOpen: boolean;
     onOpenChange: (open: boolean) => void;
     onOpen: () => void;
-    placeholder?: string;
+    userId?: string;
 }) {
     const [imageFiles, setImageFiles] = useState<File[]>([]);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -31,6 +35,10 @@ export default function CreatePostModal({
     const [isPremium, setIsPremium] = useState<boolean>(false);
     const editor = useRef(null);
     const [content, setContent] = useState("");
+    const [title, setTitle] = useState("");
+
+    const { mutate: handleCreatePost, isPending: createUserPending } =
+        useCreatePost();
 
     const {
         data: categoryData,
@@ -55,21 +63,24 @@ export default function CreatePostModal({
         const formData = new FormData();
 
         const postData = {
+            title: title,
+            user: userId,
             content: content,
-            category: "category1",
-            isPremium: false,
+            category: category,
+            isPremium: isPremium,
         };
 
+        // console.log("post data", postData);
         formData.append("data", JSON.stringify(postData));
 
         for (let image of imageFiles) {
             formData.append("itemImages", image);
         }
 
-        console.log(formData.get("data"));
-        console.log(formData.get("itemImages"));
+        // console.log(formData.get("data"));
+        // console.log(formData.get("itemImages"));
 
-        // handleCreatePost(formData);
+        handleCreatePost(formData);
     };
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +101,7 @@ export default function CreatePostModal({
 
     return (
         <>
-            {getCategoryPending && <LoadingSpinner />}
+            {(getCategoryPending || createUserPending) && <LoadingSpinner />}
             <Modal
                 isOpen={isOpen}
                 placement="top-center"
@@ -104,14 +115,19 @@ export default function CreatePostModal({
                                 Create Post
                             </ModalHeader>
                             <ModalBody>
+                                <Input
+                                    label="Title"
+                                    name="title"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                />
                                 <JoditEditor
                                     ref={editor}
                                     value={content}
                                     // tabIndex={1} // tabIndex of textarea
-                                    onBlur={(newContent) =>
+                                    onChange={(newContent) =>
                                         setContent(newContent)
                                     } // preferred to use only this option to update the content for performance reasons
-                                    onChange={(newContent) => {}}
                                 />
                                 {imagePreviews.length > 0 && (
                                     <div className="flex gap-5 my-5 flex-wrap">
@@ -146,12 +162,6 @@ export default function CreatePostModal({
                                 </div>
 
                                 <div className="min-w-fit flex-1">
-                                    {/* <FXSelect
-                                    // disabled={!categorySuccess}
-                                    label="Category"
-                                    name="category"
-                                    options={categoryOption}
-                                /> */}
                                     <Select
                                         className="min-w-full sm:min-w-[225px]"
                                         // isDisabled={disabled}
