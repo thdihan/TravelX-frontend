@@ -1,7 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { createComment, deleteComment } from "../services/Comments";
+import {
+    createComment,
+    deleteComment,
+    updateDelete,
+} from "../services/Comments";
 import { TComment } from "../types";
 
 export const useCreateComment = () => {
@@ -36,6 +40,24 @@ export const useDeleteComment = () => {
             toast.error(error.message, {
                 duration: 1000,
                 id: toastId,
+            });
+        },
+    });
+};
+
+export const useUpdateComment = () => {
+    return useMutation<any, Error, { commentId: string; comment: TComment }>({
+        mutationKey: ["UPDATE_POST"],
+        mutationFn: async ({ commentId, comment }) =>
+            await updateDelete(commentId, comment),
+        onSuccess: () => {
+            toast.success("Comment updated successfully", {
+                duration: 1000,
+            });
+        },
+        onError: (error) => {
+            toast.error(error.message, {
+                duration: 1000,
             });
         },
     });

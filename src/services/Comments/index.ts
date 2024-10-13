@@ -3,6 +3,7 @@ import { revalidateTag } from "next/cache";
 
 import envConfig from "@/src/config/envConfig";
 import { axiosInstance } from "@/src/lib/AxiosInstance";
+import { TComment } from "@/src/types";
 
 export const getPostComments = async (postId: string) => {
     const fetchOption = {
@@ -42,5 +43,20 @@ export const deleteComment = async (commentId: string) => {
         return data;
     } catch (error: any) {
         throw new Error("Failed to delete comment");
+    }
+};
+
+export const updateDelete = async (commentId: string, comment: TComment) => {
+    try {
+        const { data } = await axiosInstance.put(
+            `/comment/update/${commentId}`,
+            comment
+        );
+
+        revalidateTag("comments");
+
+        return data;
+    } catch (error: any) {
+        throw new Error("Failed to update comment");
     }
 };
