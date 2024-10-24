@@ -60,11 +60,9 @@ const Card = ({
         handleAddVote(postData);
     };
 
-    console.log(post);
-
     return (
         <NextJsCard className="w-full p-4">
-            <CardHeader className="justify-between">
+            <CardHeader className="justify-between flex-col md:flex-row items-start gap-2">
                 <div className="flex gap-5">
                     <Avatar
                         isBordered
@@ -73,7 +71,7 @@ const Card = ({
                         src={post?.user?.profilePhoto}
                     />
                     <div className="flex flex-col gap-1 items-start justify-center">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex  items-center gap-2">
                             <h4 className="text-small font-semibold leading-none text-default-600">
                                 {post?.user?.name}
                             </h4>
