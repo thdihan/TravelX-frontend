@@ -73,9 +73,15 @@ const Card = ({
                         src={post?.user?.profilePhoto}
                     />
                     <div className="flex flex-col gap-1 items-start justify-center">
-                        <h4 className="text-small font-semibold leading-none text-default-600">
-                            {post?.user?.name}
-                        </h4>
+                        <div className="flex items-center space-x-2">
+                            <h4 className="text-small font-semibold leading-none text-default-600">
+                                {post?.user?.name}
+                            </h4>
+                            <p className="text-small text-[#eb6b56] font-semibold cursor-pointer">
+                                Follow
+                            </p>
+                        </div>
+
                         <h5 className="text-small tracking-tight text-default-400">
                             {post?.user?.email}
                         </h5>

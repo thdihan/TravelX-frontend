@@ -1,8 +1,11 @@
 "use client";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/modal";
+import { RiUserFollowFill } from "react-icons/ri";
+import { GiShadowFollower } from "react-icons/gi";
 
 import CreatePostModal from "../CreatePost";
+import FollowModal from "../FollowModal";
 
 import { adminLinks, userLinks } from "./constants";
 import { SidebarOptions } from "./SidebarOptions";
@@ -17,9 +20,9 @@ const Sidebar = () => {
         <div>
             <CreatePostModal
                 isOpen={isOpen}
+                userId={user?._id}
                 onOpen={onOpen}
                 onOpenChange={onOpenChange}
-                userId={user?._id}
             />
             <div className="rounded-xl bg-white border border-gray-200 p-4">
                 <div className="h-[330px] w-full rounded-md">
@@ -36,12 +39,17 @@ const Sidebar = () => {
                     Create a post
                 </Button>
                 <div className="flex justify-between py-3">
-                    <h2 className="bg-[#F4F4F5] px-2 py-1 rounded-lg">
-                        <span className="font-semibold">Follower</span> : 100
-                    </h2>
-                    <h2 className="bg-[#F4F4F5] px-2 py-1 rounded-lg">
-                        <span className="font-semibold">Following</span> : 100
-                    </h2>
+                    <FollowModal
+                        count={100}
+                        icon={<GiShadowFollower />}
+                        text="Follower"
+                    />
+
+                    <FollowModal
+                        count={100}
+                        icon={<RiUserFollowFill />}
+                        text="Following"
+                    />
                 </div>
             </div>
             <div className="mt-3 space-y-2 rounded-xl bg-default-100 p-2">
