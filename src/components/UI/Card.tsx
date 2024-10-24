@@ -7,12 +7,14 @@ import {
     CardHeader,
 } from "@nextui-org/card";
 import parse from "html-react-parser";
+import Link from "next/link";
+
+import FollowButton from "./FollowButton";
 
 import { IPost, TVotes } from "@/src/types";
 import { DownArrowVote, UpArrowVote } from "@/src/assets/icons";
 import { useMakeVote } from "@/src/hooks/vote.hook";
 import { useUser } from "@/src/contest/user.provider";
-import Link from "next/link";
 
 const Card = ({
     post,
@@ -37,6 +39,7 @@ const Card = ({
             };
 
             handleRemoveVote(postData);
+
             return;
         }
 
@@ -48,6 +51,7 @@ const Card = ({
             };
 
             handleRemoveVote(postData);
+
             return;
         }
 
@@ -75,9 +79,12 @@ const Card = ({
                             <h4 className="text-small font-semibold leading-none text-default-600">
                                 {post?.user?.name}
                             </h4>
-                            <p className="text-small text-[#eb6b56] font-semibold cursor-pointer">
-                                Follow
-                            </p>
+                            {user?._id !== post?.user?._id && (
+                                <FollowButton
+                                    followingId={post?.user?._id!}
+                                    userId={user?._id as string}
+                                />
+                            )}
                         </div>
 
                         <h5 className="text-small tracking-tight text-default-400">

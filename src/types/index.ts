@@ -63,3 +63,8 @@ export type TCommentValue = {
     userId: IUser;
     comment: string;
 };
+
+export type TFollow = {
+    userId: string;
+    followingId: string;
+};
