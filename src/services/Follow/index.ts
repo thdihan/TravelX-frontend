@@ -30,7 +30,10 @@ export const getFollowing = async (userId: string) => {
         ).then((res) => res.json());
         // console.log("Following Data : ", res.data);
 
-        const followingList = res?.data?.map((item: any) => item.followerId);
+        const followingList = res?.data?.map((item: any) => ({
+            followingId: item.followerId?._id,
+            name: item.followerId?.name,
+        }));
 
         return followingList;
     } catch (error: any) {

@@ -16,15 +16,19 @@ interface IUserProviderValues {
     isLoading: boolean;
     setUser: (user: IUser | null) => void;
     setIsLoading: Dispatch<SetStateAction<boolean>>;
-    followinglist: string[];
+    followinglist: TFollowing[];
     setFollowingLoading: Dispatch<SetStateAction<boolean>>;
 }
+type TFollowing = {
+    followingId: string;
+    name: string;
+};
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<IUser | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const [followinglist, setFollowingList] = useState<string[]>([]);
+    const [followinglist, setFollowingList] = useState<TFollowing[]>([]);
     const [followingLoading, setFollowingLoading] = useState(false);
 
     const handleUser = async () => {

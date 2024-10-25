@@ -64,6 +64,9 @@ const Card = ({
         handleAddVote(postData);
     };
 
+    // console.log("Following List : ", followinglist);
+    const following = followinglist.map((item) => item.followingId);
+
     return (
         <NextJsCard className="w-full p-4">
             <CardHeader className="justify-between flex-col md:flex-row items-start gap-2">
@@ -85,7 +88,7 @@ const Card = ({
                                     setFollowingLoading={setFollowingLoading}
                                     userId={user?._id as string}
                                     action={
-                                        !followinglist.includes(post?.user?._id)
+                                        !following.includes(post?.user?._id)
                                             ? "follow"
                                             : "unfollow"
                                     }
