@@ -1,13 +1,18 @@
 import React from "react";
+import _ from "lodash";
 
 import { useCreateFollow } from "@/src/hooks/follow.hook";
 
 export default function FollowButton({
     userId,
     followingId,
+    action,
+    setFollowingLoading,
 }: {
     userId: string;
     followingId: string;
+    action: string;
+    setFollowingLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
     const { mutate: handleCreateFollow, isPending: createUserPending } =
         useCreateFollow();
@@ -19,6 +24,7 @@ export default function FollowButton({
         };
 
         handleCreateFollow(followData);
+        setFollowingLoading(true);
     };
 
     return (
@@ -26,7 +32,7 @@ export default function FollowButton({
             onClick={handleFollow}
             className="text-small text-[#eb6b56] font-semibold cursor-pointer"
         >
-            Follow
+            {_.capitalize(action)}
         </button>
     );
 }

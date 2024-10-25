@@ -25,7 +25,7 @@ const Card = ({
     upVotes: TVotes[];
     downVotes: TVotes[];
 }) => {
-    const { user } = useUser();
+    const { user, followinglist, setFollowingLoading } = useUser();
     const { mutate: handleAddVote } = useMakeVote("add");
     const { mutate: handleRemoveVote } = useMakeVote("remove");
 
@@ -82,7 +82,13 @@ const Card = ({
                             {user?._id !== post?.user?._id && (
                                 <FollowButton
                                     followingId={post?.user?._id!}
+                                    setFollowingLoading={setFollowingLoading}
                                     userId={user?._id as string}
+                                    action={
+                                        !followinglist.includes(post?.user?._id)
+                                            ? "follow"
+                                            : "unfollow"
+                                    }
                                 />
                             )}
                         </div>

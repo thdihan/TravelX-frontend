@@ -11,7 +11,6 @@ export const getRecentPosts = async (query: any) => {
 
     if (query) {
         queryString = new URLSearchParams(query).toString();
-        console.log(queryString);
     }
     const res = await fetch(
         `${envConfig.baseApi}/post?${queryString}
