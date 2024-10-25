@@ -16,6 +16,20 @@ export const follow = async (followData: any) => {
     }
 };
 
+export const unfollow = async (followData: any) => {
+    try {
+        const { data } = await axiosInstance.delete(
+            `/follow?userId=${followData.userId}&followerId=${followData.followingId}`
+        );
+
+        revalidateTag("following");
+
+        return data;
+    } catch (error: any) {
+        throw new Error("Failed to follow");
+    }
+};
+
 export const getFollowing = async (userId: string) => {
     const fetchOption = {
         next: {

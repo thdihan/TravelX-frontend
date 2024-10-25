@@ -1,7 +1,8 @@
 import React from "react";
 import _ from "lodash";
 
-import { useCreateFollow } from "@/src/hooks/follow.hook";
+import { useCreateFollow, useRemoveFollow } from "@/src/hooks/follow.hook";
+import LoadingSpinner from "./Loading";
 
 export default function FollowButton({
     userId,
@@ -14,8 +15,11 @@ export default function FollowButton({
     action: string;
     setFollowingLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-    const { mutate: handleCreateFollow, isPending: createUserPending } =
+    const { mutate: handleCreateFollow, isPending: followPending } =
         useCreateFollow();
+
+    const { mutate: handleRemoveFollow, isPending: unfollowPending } =
+        useRemoveFollow();
 
     const handleFollow = () => {
         const followData = {
@@ -27,12 +31,25 @@ export default function FollowButton({
         setFollowingLoading(true);
     };
 
+    const handleUnfollow = () => {
+        const followData = {
+            userId,
+            followingId,
+        };
+
+        handleRemoveFollow(followData);
+        setFollowingLoading(true);
+    };
+
     return (
-        <button
-            onClick={handleFollow}
-            className="text-small text-[#eb6b56] font-semibold cursor-pointer"
-        >
-            {_.capitalize(action)}
-        </button>
+        <>
+            {(followPending || unfollowPending) && <LoadingSpinner />}
+            <button
+                className="text-small text-[#eb6b56] font-semibold cursor-pointer"
+                onClick={action === "follow" ? handleFollow : handleUnfollow}
+            >
+                {_.capitalize(action)}
+            </button>
+        </>
     );
 }
