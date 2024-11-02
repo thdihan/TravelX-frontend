@@ -9,7 +9,7 @@ import {
 
 import { IUser } from "../types";
 import { getCurrentUser } from "../services/AuthServices";
-import { getFollowing } from "../services/Follow";
+import { getFollower, getFollowing } from "../services/Follow";
 
 interface IUserProviderValues {
     user: IUser | null;
@@ -17,6 +17,7 @@ interface IUserProviderValues {
     setUser: (user: IUser | null) => void;
     setIsLoading: Dispatch<SetStateAction<boolean>>;
     followinglist: TFollowing[];
+    followerlist: TFollowing[];
     setFollowingLoading: Dispatch<SetStateAction<boolean>>;
 }
 type TFollowing = {
@@ -29,23 +30,28 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [followinglist, setFollowingList] = useState<TFollowing[]>([]);
+    const [followerlist, setFollowerList] = useState<TFollowing[]>([]);
     const [followingLoading, setFollowingLoading] = useState(false);
 
     const handleUser = async () => {
         const user = await getCurrentUser();
         const following = await getFollowing(user?._id);
+        const follower = await getFollower(user?._id as string);
 
         // console.log("Following Data : ", following);
         setUser(user);
         setFollowingList(following);
+        setFollowerList(follower);
         setIsLoading(false);
     };
 
     const handleFollowing = async () => {
         const following = await getFollowing(user?._id as string);
-        console.log("Following Data : ", following);
+        const follower = await getFollower(user?._id as string);
+        // console.log("Following Data : ", following);
 
         setFollowingList(following);
+        setFollowerList(follower);
         setFollowingLoading(false);
     };
 
@@ -67,6 +73,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 isLoading,
                 setIsLoading,
                 followinglist,
+                followerlist,
                 setFollowingLoading,
             }}
         >

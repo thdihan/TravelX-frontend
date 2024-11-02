@@ -54,3 +54,29 @@ export const getFollowing = async (userId: string) => {
         throw new Error(error.message);
     }
 };
+
+export const getFollower = async (userId: string) => {
+    const fetchOption = {
+        next: {
+            tags: ["follower"],
+        },
+    };
+
+    try {
+        // console.log("Fetching Follower Data");
+        const res = await fetch(
+            `${envConfig.baseApi}/follow/followers/${userId}`,
+            fetchOption
+        ).then((res) => res.json());
+        // console.log("Following Data : ", res.data);
+
+        const followerList = res?.data?.map((item: any) => ({
+            followerId: item.userId?._id,
+            name: item.userId?.name,
+        }));
+
+        return followerList;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+};

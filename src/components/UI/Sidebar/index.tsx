@@ -13,8 +13,20 @@ import { SidebarOptions } from "./SidebarOptions";
 import { useUser } from "@/src/contest/user.provider";
 
 const Sidebar = () => {
-    const { user } = useUser();
+    const { user, followinglist, followerlist } = useUser();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+    const following = followinglist.map((item) => ({
+        id: item.followingId,
+        name: item.name,
+    }));
+
+    const follower = followerlist.map((item) => ({
+        id: item.followingId,
+        name: item.name,
+    }));
+
+    // console.log("Following List : ", followerlist);
 
     return (
         <div>
@@ -31,6 +43,7 @@ const Sidebar = () => {
                 <div className="my-3">
                     <h1 className="text-2xl font-semibold">{user?.name}</h1>
                     <p className="break-words text-sm">{user?.email}</p>
+                    {/* <FollowButton action="Follow" /> */}
                 </div>
                 <Button
                     className="mt-2 w-full rounded-md bg-[#eb6b56] text-white "
@@ -40,13 +53,15 @@ const Sidebar = () => {
                 </Button>
                 <div className="flex justify-between py-3">
                     <FollowModal
-                        count={100}
+                        count={follower.length}
+                        data={follower}
                         icon={<GiShadowFollower />}
                         text="Follower"
                     />
 
                     <FollowModal
-                        count={100}
+                        count={following.length}
+                        data={following}
                         icon={<RiUserFollowFill />}
                         text="Following"
                     />

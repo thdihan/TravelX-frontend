@@ -1,8 +1,9 @@
 import React from "react";
 import _ from "lodash";
 
-import { useCreateFollow, useRemoveFollow } from "@/src/hooks/follow.hook";
 import LoadingSpinner from "./Loading";
+
+import { useCreateFollow, useRemoveFollow } from "@/src/hooks/follow.hook";
 
 export default function FollowButton({
     userId,
