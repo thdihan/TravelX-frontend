@@ -18,6 +18,8 @@ function ProfilePosts({ posts, votes }: { posts: IPost[]; votes: TVotes[] }) {
         setFilteredPosts(filtered);
     }, [posts, user]);
 
+    // console.log(user);
+
     return (
         <div className="flex space-y-4 flex-col w-full">
             {filteredPosts?.map((post: IPost) => {

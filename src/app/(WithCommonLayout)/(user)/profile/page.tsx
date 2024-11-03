@@ -5,6 +5,7 @@ import { getVotes } from "@/src/services/Votes";
 async function page() {
     const { data: posts } = await getRecentPosts({});
     const { data: votes } = await getVotes();
+
     return (
         <>
             <ProfilePosts posts={posts} votes={votes} />

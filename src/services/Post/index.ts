@@ -29,3 +29,19 @@ export const getSinglePost = async (postId: string) => {
         throw new Error("Failed to get post");
     }
 };
+
+export const updatePost = async (postId: string, formData: FormData) => {
+    try {
+        const { data } = await axiosInstance.put(`/post/${postId}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        revalidateTag("posts");
+
+        return data;
+    } catch (error: any) {
+        throw new Error("Failed to update post");
+    }
+};

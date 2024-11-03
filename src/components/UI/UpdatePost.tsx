@@ -8,6 +8,7 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
+    useDisclosure,
 } from "@nextui-org/modal";
 import { ChangeEvent, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
@@ -17,28 +18,28 @@ import { Input } from "@nextui-org/input";
 import LoadingSpinner from "./Loading";
 
 import { useGetCategories } from "@/src/hooks/categories.hook";
-import { useCreatePost } from "@/src/hooks/post.hook";
+import { useUpdatePost } from "@/src/hooks/post.hook";
+import { WriteIcon } from "@/src/assets/icons";
+import { IPost } from "@/src/types";
 
-export default function CreatePostModal({
-    isOpen,
-    onOpenChange,
-    userId,
-}: {
-    isOpen: boolean;
-    onOpenChange: (open: boolean) => void;
-    onOpen: () => void;
+type TProps = {
     userId?: string;
-}) {
+    post: IPost;
+};
+export default function UpdatePost({ userId, post }: TProps) {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [imageFiles, setImageFiles] = useState<File[]>([]);
-    const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-    const [category, setCategory] = useState<string>("");
-    const [isPremium, setIsPremium] = useState<boolean>(false);
+    const [imagePreviews, setImagePreviews] = useState<string[]>(
+        post.images || []
+    );
+    const [category, setCategory] = useState<string>(post.category._id);
+    const [isPremium, setIsPremium] = useState<boolean>(post.isPremium);
     const editor = useRef(null);
-    const [content, setContent] = useState("");
-    const [title, setTitle] = useState("");
+    const [content, setContent] = useState(post.content);
+    const [title, setTitle] = useState(post.title);
 
-    const { mutate: handleCreatePost, isPending: createUserPending } =
-        useCreatePost();
+    const { mutate: handleUpdatePost, isPending: updatePending } =
+        useUpdatePost(post._id);
 
     const {
         data: categoryData,
@@ -77,10 +78,9 @@ export default function CreatePostModal({
             formData.append("itemImages", image);
         }
 
-        // console.log(formData.get("data"));
-        // console.log(formData.get("itemImages"));
+        console.log("form data", formData.get("itemImages"));
 
-        handleCreatePost(formData);
+        handleUpdatePost(formData);
     };
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +101,8 @@ export default function CreatePostModal({
 
     return (
         <>
-            {(getCategoryPending || createUserPending) && <LoadingSpinner />}
+            {(getCategoryPending || updatePending) && <LoadingSpinner />}
+            <WriteIcon className="cursor-pointer text-red" onClick={onOpen} />
             <Modal
                 isOpen={isOpen}
                 placement="top-center"
@@ -164,7 +165,7 @@ export default function CreatePostModal({
                                 <div className="min-w-fit flex-1">
                                     <Select
                                         className="min-w-full sm:min-w-[225px]"
-                                        // isDisabled={disabled}
+                                        defaultSelectedKeys={[category]}
                                         label="Category"
                                         value={category}
                                         onChange={(e) =>
@@ -181,7 +182,8 @@ export default function CreatePostModal({
 
                                 <div className="flex py-2 px-1 justify-between">
                                     <Checkbox
-                                        checked={isPremium}
+                                        // checked={isPremium}
+                                        isSelected={isPremium}
                                         classNames={{
                                             label: "text-small",
                                         }}
@@ -208,7 +210,7 @@ export default function CreatePostModal({
                                         onClose();
                                     }}
                                 >
-                                    Create Post
+                                    Update Post
                                 </Button>
                             </ModalFooter>
                         </>

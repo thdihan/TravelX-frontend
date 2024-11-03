@@ -10,6 +10,7 @@ import parse from "html-react-parser";
 import Link from "next/link";
 
 import FollowButton from "./FollowButton";
+import UpdatePost from "./UpdatePost";
 
 import { IPost, TVotes } from "@/src/types";
 import { DownArrowVote, UpArrowVote } from "@/src/assets/icons";
@@ -84,14 +85,14 @@ const Card = ({
                             </h4>
                             {user?._id !== post?.user?._id && (
                                 <FollowButton
-                                    followingId={post?.user?._id!}
-                                    setFollowingLoading={setFollowingLoading}
-                                    userId={user?._id as string}
                                     action={
                                         !following.includes(post?.user?._id)
                                             ? "follow"
                                             : "unfollow"
                                     }
+                                    followingId={post?.user?._id!}
+                                    setFollowingLoading={setFollowingLoading}
+                                    userId={user?._id as string}
                                 />
                             )}
                         </div>
@@ -101,8 +102,14 @@ const Card = ({
                         </h5>
                     </div>
                 </div>
-                <div className="text-sm bg-[#eb6b56] py-1 px-2 text-white font-semibold rounded-full">
-                    {post?.category?.name}
+                <div className="flex gap-2">
+                    <div className="text-sm bg-[#eb6b56] py-1 px-2 text-white font-semibold rounded-full">
+                        {post?.category?.name}
+                    </div>
+
+                    {user?._id === post?.user?._id && (
+                        <UpdatePost post={post} userId={user?._id as string} />
+                    )}
                 </div>
             </CardHeader>
             <CardBody className="px-3 py-0 text-small text-default-400 w-[100%]">

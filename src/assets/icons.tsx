@@ -59,6 +59,7 @@ export const WriteIcon: React.FC<IconSvgProps> = ({
             strokeWidth={1.5}
             stroke="currentColor"
             width={size || width}
+            {...props}
         >
             <path
                 strokeLinecap="round"
